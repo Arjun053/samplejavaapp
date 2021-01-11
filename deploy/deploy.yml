@@ -9,4 +9,4 @@
             echo "No Service found"
          fi
     - name: deploy app
-      command: docker service create --name db --replicas 5 -p 9080:80 arjun053/samplejavaapp:{{ build }}
+      command: docker service create --name db --replicas 5 -p 9080:80 1207585/swarm_sample:{{ build }}
