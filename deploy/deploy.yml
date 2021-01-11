@@ -9,4 +9,4 @@
             echo "No Service found"
          fi
     - name: deploy web
-      command: docker service create --name web --replicas 2 1207585/swarm_sample:{{ build }}
+      command: docker service create --name web --replicas 5 1207585/swarm_sample:{{ build }}
