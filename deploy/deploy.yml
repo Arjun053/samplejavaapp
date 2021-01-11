@@ -1,12 +1,12 @@
 - hosts: "{{ env }}"
   become: yes
   tasks: 
-    - name: remove any previous app services
+    - name: remove any previous web services
       shell: | 
          if [ `docker service ls | grep -v NAME | grep mysvc | awk '{print $2}' | wc -l` -gt 0 ]; then  
             docker service rm `docker service ls | grep -v NAME | grep mysvc | awk '{print $2}'`
          else 
             echo "No Service found"
          fi
-    - name: deploy app
-      command: docker service create --name db --replicas 5 -p 9080:80 1207585/swarm_sample:{{ build }}
+    - name: deploy web
+      command: docker service create --name web --replicas 2 1207585/swarm_sample:{{ build }}
