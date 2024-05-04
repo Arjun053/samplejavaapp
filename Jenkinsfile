@@ -1,10 +1,14 @@
 pipeline {
   agent any
+
+  tools{
+    maven 'M3'
+  }
   stages {
     stage('compile') {
       steps {
         git 'https://github.com/lerndevops/samplejavaapp.git'
-        sh '/opt/apache-maven-3.6.3/bin/mvn compile'
+        bat 'mvn compile'
         sleep 10
       }
     }
@@ -12,7 +16,7 @@ pipeline {
     stage('codereview-pmd') {
       
       steps {
-        sh '/opt/apache-maven-3.6.3/bin/mvn -P metrics pmd:pmd'
+        bat 'mvn -P metrics pmd:pmd'
       }
     }
 
@@ -24,7 +28,7 @@ pipeline {
 
       }
       steps {
-        sh '/opt/apache-maven-3.6.3/bin/mvn test'
+        bat 'mvn test'
       }
     }
 
@@ -36,13 +40,13 @@ pipeline {
 
       }
       steps {
-        sh '/opt/apache-maven-3.6.3/bin/mvn cobertura:cobertura -Dcobertura.report.format=xml'
+        bat 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
       }
     }
 
     stage('package') {
       steps {
-        sh '/opt/apache-maven-3.6.3/bin/mvn clean package'
+        bat 'mvn clean package'
       }
     }
 
